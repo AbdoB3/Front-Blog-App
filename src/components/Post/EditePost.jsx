@@ -10,7 +10,6 @@ export default function EditePost() {
 
 
     useEffect(() => {
-        // Fetch blog post data from the API
         fetch(`http://localhost:3000/post/${id}`)
             .then(response => response.json())
             .then(data => setFormData(data))
@@ -28,20 +27,18 @@ export default function EditePost() {
         // Check if a token exists
         if (token) {
             try {
-                // Parse and decode the token
+                //decode the token
                 const decodedToken = jwtDecode(token);
 
-                // Check token expiration
                 const currentTime = Date.now() / 1000; // Convert to seconds
                 if (decodedToken.exp < currentTime) {
                     console.log('Token expired')
                     return false;
                 }
 
-                // Token valid, user is logged in
                 return true;
             } catch (error) {
-                // Error decoding token, user is not logged in
+                
                 return false;
             }
         } else {
@@ -73,10 +70,7 @@ export default function EditePost() {
         navigate('/')
         const responseData = await response.json(); // Parse response data as JSON
 
-        // Handle response data as needed
         console.log('Response data:', responseData);
-
-        // Redirect or display success message, etc.
     };
 
 
@@ -100,7 +94,7 @@ export default function EditePost() {
                     </form>
                 </>) : (
 
-                <p className="text-gray-600 m-40 text-center text-4xl">You should login {id}</p>
+                <p className="text-gray-600 m-40 text-center text-4xl">You should login </p>
             )}
 
         </>

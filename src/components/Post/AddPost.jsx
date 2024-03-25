@@ -15,20 +15,17 @@ export default function AddPost() {
         // Check if a token exists
         if (token) {
             try {
-                // Parse and decode the token
                 const decodedToken = jwtDecode(token);
 
-                // Check token expiration
+                // Check expiration
                 const currentTime = Date.now() / 1000; // Convert to seconds
                 if (decodedToken.exp < currentTime) {
                     console.log('Token expired')
                     return false;
                 }
 
-                // Token valid, user is logged in
                 return true;
             } catch (error) {
-                // Error decoding token, user is not logged in
                 return false;
             }
         } else {
@@ -60,10 +57,8 @@ export default function AddPost() {
         navigate('/')
         const responseData = await response.json(); // Parse response data as JSON
 
-        // Handle response data as needed
         console.log('Response data:', responseData);
 
-        // Redirect or display success message, etc.
     };
 
 

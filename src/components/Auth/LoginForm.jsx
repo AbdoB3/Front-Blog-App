@@ -32,13 +32,12 @@ export default function LoginForm() {
             }
 
             const token = await response.json();
-            // Handle successful login (e.g., store token in local storage, redirect user)
+            // Store token in local storage, redirect user
             localStorage.setItem('token', token);
             console.log('Login successful. Token:', token);
             navigate('/')
         } catch (error) {
             console.error('Error logging in:', error);
-            // Handle login error (e.g., display error message)
         }
     };
 

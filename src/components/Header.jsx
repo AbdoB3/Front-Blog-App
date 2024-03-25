@@ -1,21 +1,14 @@
 import { Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { useState } from "react";
-
-
-
 
 function Header() {
 
   const isLoggedIn = () => {
     const token = localStorage.getItem('token');
   
-    // Check if a token exists
     if (token) {
-        // Parse and decode the token
         const decodedToken = jwtDecode(token);
   
-        // Check token expiration
         const currentTime = Date.now() / 1000; // Convert to seconds
         if (decodedToken.exp < currentTime) {
           console.log('Token expired')

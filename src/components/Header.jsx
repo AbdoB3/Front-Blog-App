@@ -1,14 +1,46 @@
-function Header(props) {
+import { Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { useState } from "react";
+
+
+
+
+function Header() {
+
+  const isLoggedIn = () => {
+    const token = localStorage.getItem('token');
+  
+    // Check if a token exists
+    if (token) {
+        // Parse and decode the token
+        const decodedToken = jwtDecode(token);
+  
+        // Check token expiration
+        const currentTime = Date.now() / 1000; // Convert to seconds
+        if (decodedToken.exp < currentTime) {
+          console.log('Token expired')
+          return false;
+        }
+  
+        // Token valid, user is logged in
+        return true;
+    } else {
+      console.log('Login first')
+      return false;
+    }
+  };
+  
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-          </a>
+          <Link to="http://localhost:5174/" className="flex items-center space-x-3 rtl:space-x-reverse">
+            
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Welcome to my blog</span>
+          </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{props.isLoggedIn?"Logout":"Login"}</button>
+          <Link to="/login"><button type="button" onClick={isLoggedIn} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{isLoggedIn()?`Logout`:"Login"} </button></Link>
+          <Link to="/register"><button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-5">Register </button></Link>
             <button data-collapse-toggle="navbar-cta" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
               <span className="sr-only">Open main menu</span>
               <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
